@@ -4,7 +4,7 @@
 
 `Python` + `Flask`를 활용하여 `replit` 환경에서 개발한 구인정보 탐색 Web Scrapper 입니다.
 
-[Live Demo](https://replit.com/@yhcwawo/Flask-Web-Scrapper#README.md)
+[Live Demo](https://replit.com/@yhcwawo/Flask-Web-Scrapper#main.py)
 
 ## Stack
 
