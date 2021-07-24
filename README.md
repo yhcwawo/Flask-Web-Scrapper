@@ -4,13 +4,17 @@
 
 `Python` + `Flask`를 활용하여 `replit` 환경에서 개발한 구인정보 탐색 Web Scrapper 입니다.
 
-[Live Demo](https://flask-web-scrapper.yhcwawo.repl.co/)
+[Live Demo](https://replit.com/@yhcwawo/Flask-Web-Scrapper#README.md)
 
 ## Stack
 
 `python` + `flask` + `replit`
 
 ## Result
+
+![result1](https://user-images.githubusercontent.com/15721531/126865261-e3bc04bc-aa37-4d05-917c-70f810246a20.PNG)
+
+![result2](https://user-images.githubusercontent.com/15721531/126865263-fc36636d-3159-4add-b202-ac1ebcdc02b0.PNG)
 
 https://stackoverflow.com/jobs?r=true&q=python
 
