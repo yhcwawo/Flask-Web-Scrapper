@@ -1,16 +1,16 @@
-# Flask는 파이썬으로 웹사이트 만들게 도와주는 micro(설정 일일이 해주지 않아도 됨)-framework
-from flask import Flask, render_template, request, redirect
-from scrapper import get_jobs
-#from save import save_to_file
+from flask import Flask, render_template, request, redirect, send_file
+from scrapper_so import get_jobs
+from scrapper_ro import get_RO_jobs
+from scrapper_wwr import get_WWR_jobs
+from save import save_to_file
 
 app = Flask("FlaskScrapper")
-
+#fake DB
 db = {}
 
-# @는 바로 아래에 있는 함수를 찾음
-@app.route("/") #누군가 /로 접속시도시 파이썬 함수 실행 
+@app.route("/") 
 def home():
-  return render_template("index.html") #html 파일을 메인(유저)에게 보내주기
+  return render_template("index.html") #해당 html 파일 랜더링
 
 @app.route("/report") 
 def report():
@@ -22,42 +22,33 @@ def report():
     if existingJobs:
       jobs = existingJobs
     else:
-      jobs = get_jobs(word)
+      jobs = get_jobs(word) + get_WWR_jobs(word) + get_RO_jobs(word)
+      #jobs 변수에 3개 사이트 스크래핑 결과 저장
+
       db[word] = jobs
-      print(jobs)
+      #fake db에 스크래핑 결과 저장
+      #print(jobs)
 
   else:
     return redirect("/")
 
   return render_template("report.html", searchingBy=word, resultsNumber=len(jobs), jobs=jobs) 
 
+#CSV 추출시
 @app.route("/export")
 def export():
   try:
     word = request.args.get('word')
     if not word:
-        raise Exception()
-
+      raise Exception()
     word = word.lower()
     jobs = db.get(word)
-
     if not jobs:
       raise Exception()
-    return f"Genrate CSV for {word}"
-
-    
-
+    save_to_file(jobs)
+    return send_file("jobs.csv")
   except:
-    return redirect("/") 
-  
+    return redirect("/")
 
 
-
-"""
-@app.route("/<username>") #각기 다른 url 찾을 수 있음
-def potato(username):
-  return f"Hello your name is {username}"
-#html 템플릿 만들기
-"""
- 
-app.run(host = "0.0.0.0") #repl.it에서 작업하느라 host를 저렇게 설정
+app.run(host = "0.0.0.0") #repl.it 환경에서 개발 시
